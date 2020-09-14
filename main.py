@@ -4,8 +4,6 @@ from selenium import webdriver
 import time
 import io
 import requests
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.common.exceptions import ElementClickInterceptedException
 #Install Driver
 driver = webdriver.Chrome(ChromeDriverManager().install())
 #Specify Search URL 
