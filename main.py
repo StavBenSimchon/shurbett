@@ -2,7 +2,6 @@ import os
 import selenium
 from selenium import webdriver
 import time
-from PIL import Image
 import io
 import requests
 from webdriver_manager.chrome import ChromeDriverManager
