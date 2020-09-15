@@ -1,9 +1,9 @@
 const Nightmare = require('nightmare')
 const nightmare = Nightmare({ show: false })
-
+console.log(nightmare);
 module.exports = () => {
-// https://www.10bet.com
-  nightmare.goto('https://www.findair.co.uk')
+//
+  nightmare.goto('https://findair.co.uk')
     .evaluate(() => document.querySelector('#from').placeholder)
     .end()
     .then(console.log)
