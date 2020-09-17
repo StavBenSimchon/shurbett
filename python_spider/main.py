@@ -33,7 +33,7 @@ req_param = {
     'wait': 5
 }
 
-r = requests.post(f"http://{config['splash_url']}:{config['splash_port']}/render.html", headers=config['req_headers'], data = json.dumps(req_param))
+r = requests.get(f"http://{config['splash_url']}:{config['splash_port']}/render.html", params=req_param)
 soup = BeautifulSoup(r.text, "lxml")
 
 print(len(soup.select('market_count')))
@@ -42,10 +42,13 @@ print(len(soup.select('market_count')))
 urls = parse_pages(soup.find_all('span',class_='market_count'), config['base_url'])
 for url in urls:
     req_param = {
-    'url': url
+    'url': url,
+    'wait': 5
     }
-    r = requests.post(f"http://{config['splash_url']}:{config['splash_port']}/render.html", headers=config['req_headers'], data = json.dumps(req_param))
+    r = requests.post(f"http://{config['splash_url']}:{config['splash_port']}/render.html", params=req_param)
     soup = BeautifulSoup(r.text, "lxml")
+    breakpoint()
+    # print(soup.select('.columns_2'))
     def has_class_but_no_id(tag):
         return tag.has_attr('class') and 'columns_2' in tag['class'] and tag.name == 'td'
     breakpoint()
