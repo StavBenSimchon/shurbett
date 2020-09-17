@@ -1,0 +1,4 @@
+docker network create mynet
+docker run -d -p 8050:8050 --network mynet --name splash scrapinghub/splash
+# docker build . -t my:con  && docker run -it --rm --network mynet --name app  my:con python -m pdb ./main.py
+docker build . -t my:con 1>/dev/null  && docker run -it --rm --network mynet --name app  my:con
