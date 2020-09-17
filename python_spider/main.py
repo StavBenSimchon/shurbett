@@ -53,3 +53,10 @@ for url in urls:
     print(a.find_all('div'))
     # soup.select('.stylelistrow, .otherclassname')
     pass
+# Find tags directly beneath other tags:
+
+soup.select("head > title")
+# [<title>The Dormouse's story</title>]
+soup.select("p > #link1")
+# [<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>]
+# https://www.crummy.com/software/BeautifulSoup/bs4/doc/#css-selectors
