@@ -3,7 +3,10 @@ const puppeteer = require('puppeteer');
 (async () => {
   try {
     console.log("1");
-    const browser = await puppeteer.launch({headless: true});
+    const browser = await puppeteer.launch({
+      executablePath: '/usr/bin/chromium-browser',
+      args: ['--no-sandbox', '--headless', '--disable-gpu']
+    });
     const page = await browser.newPage();
     await page.goto('https://findair.co.uk', {
       waitUntil: 'networkidle2',
