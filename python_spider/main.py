@@ -31,5 +31,6 @@ req_param = {
 r = requests.post(f"http://{config['splash_url']}:{config['splash_port']}/render.html", headers=config['req_headers'], data = json.dumps(req_param))
 soup = BeautifulSoup(r.text, "lxml")
 breakpoint()
-print(len(soup.find_all('span',class_='market_count')))
+print(len(soup.select('market_count')))
 # print(len(soup.find_all('span',class_='market_count')))
+# print(soup.find_all('span',class_='market_count')[0].a['href'])
