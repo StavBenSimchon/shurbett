@@ -6,9 +6,10 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repos
 # && apk add --no-cache chromium chromium-chromedriver 
 
 RUN apk add --no-cache libxml2-dev libxslt-dev g++ gcc
-RUN pip install -U pip requests-html beautifulsoup4
+RUN pip install -U pip requests beautifulsoup4 pyyaml lxml
+RUN apk del g++ gcc
 RUN apk update
 
 COPY . .
 
-CMD python a2.py
+CMD python main.py

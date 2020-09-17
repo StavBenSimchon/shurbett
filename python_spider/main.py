@@ -1,18 +1,35 @@
 from bs4 import BeautifulSoup
-from requests_html import HTMLSession
+import requests
+import json
+import yaml
+import os.path
 from pprint import pprint
-# create an HTML Session object
-session = HTMLSession()
-# Use the object above to connect to needed webpage
-resp = session.get("https://finance.yahoo.com/quote/NFLX/options?p=NFLX")
-# Run JavaScript code on webpage
-import os.path 
-if os.path.isfile('/root/.local/share/pyppeteer/local-chromium/588429/chrome-linux/chrome'):
-    print("exists")
-else:
-    print("not exists")
-s = resp.html.render()
-soup = BeautifulSoup(resp.html.html, "lxml")
+
+def parse_yaml(fp):
+    if not os.path.isfile(fp):
+        raise Exception("not a file") 
+    with open(fp) as file:
+        return yaml.load(file,Loader=yaml.FullLoader)
+
+def parse_pages(in_arr):
+    for i in in_arr:
+        pass
+
+headers = {'Content-Type': 'application/json'}
+
+config={
+    "splash_url": "splash",
+    "splash_port": 8050,
+    "req_headers": headers
+}
+new_conf = parse_yaml('./config.yaml')
+config = config | new_conf
+req_param = {
+    'url': f"{config['base_url']}{config['uri']}"
+}
+
+r = requests.post(f"http://{config['splash_url']}:{config['splash_port']}/render.html", headers=config['req_headers'], data = json.dumps(req_param))
+soup = BeautifulSoup(r.text, "lxml")
 breakpoint()
-pprint(s)
-pprint(soup)
+print(len(soup.find_all('span',class_='market_count')))
+# print(len(soup.find_all('span',class_='market_count')))
