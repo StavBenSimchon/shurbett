@@ -11,10 +11,14 @@ def parse_yaml(fp):
     with open(fp) as file:
         return yaml.load(file,Loader=yaml.FullLoader)
 
-def parse_pages(in_arr):
+def parse_pages(in_arr,base_url):
+    ou_ar = []
     for i in in_arr:
-        pass
-
+        try:
+            ou_ar.append(f"{base_url}{i.a['href']}")
+        except:
+            pass
+    return ou_ar
 headers = {'Content-Type': 'application/json'}
 
 config={
@@ -25,12 +29,26 @@ config={
 new_conf = parse_yaml('./config.yaml')
 config = config | new_conf
 req_param = {
-    'url': f"{config['base_url']}{config['uri']}"
+    'url': f"{config['base_url']}{config['uri']}",
+    'wait': 5
 }
 
 r = requests.post(f"http://{config['splash_url']}:{config['splash_port']}/render.html", headers=config['req_headers'], data = json.dumps(req_param))
 soup = BeautifulSoup(r.text, "lxml")
-breakpoint()
+
 print(len(soup.select('market_count')))
 # print(len(soup.find_all('span',class_='market_count')))
 # print(soup.find_all('span',class_='market_count')[0].a['href'])
+urls = parse_pages(soup.find_all('span',class_='market_count'), config['base_url'])
+for url in urls:
+    req_param = {
+    'url': url
+    }
+    r = requests.post(f"http://{config['splash_url']}:{config['splash_port']}/render.html", headers=config['req_headers'], data = json.dumps(req_param))
+    soup = BeautifulSoup(r.text, "lxml")
+    def has_class_but_no_id(tag):
+        return tag.has_attr('class') and 'columns_2' in tag['class'] and tag.name == 'td'
+    breakpoint()
+    a = soup.find_all(has_class_but_no_id)
+    print(a.find_all('div'))
+    pass
