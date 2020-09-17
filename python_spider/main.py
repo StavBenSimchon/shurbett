@@ -51,4 +51,5 @@ for url in urls:
     breakpoint()
     a = soup.find_all(has_class_but_no_id)
     print(a.find_all('div'))
+    # soup.select('.stylelistrow, .otherclassname')
     pass
