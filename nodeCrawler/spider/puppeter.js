@@ -6,9 +6,9 @@ const config = require('../config.json');
 (async () => {
   try {
     const browser = await puppeteer.launch({
-      headless: false,
-      // executablePath: '/usr/bin/chromium-browser',
-      // args: ['--no-sandbox', '--headless', '--disable-gpu']
+      headless: true,
+      executablePath: '/usr/bin/chromium-browser',
+      args: ['--no-sandbox', '--headless', '--disable-gpu']
     });
     const page = await browser.newPage();
 
