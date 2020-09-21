@@ -15,7 +15,7 @@ const config = require('../config.json');
     async function page_counter_line_events() {
       const counterList = new Map()
       let winner = config['winner'].urls, i = 0
-      for (i = 0; i < 2; i++) {
+      for (i = 0; i < winner.length; i++) {
         await page.goto(`${config['winner'].baseUrl}${winner[i]}`, {
           waitUntil: 'networkidle0'
         })
