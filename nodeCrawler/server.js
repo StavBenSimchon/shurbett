@@ -1,8 +1,14 @@
-const http = require('http')
-const server = http.createServer();
-const axios = require('axios')
-const cheerio = require('cheerio');
-const config = require('./config.json');
+require('dotenv').config()
+
+const express = require('express')
+const app = express()
+const { PORT } = process.env
+
+const Crawler = require('./spider/puppeter');
+// const server = http.createServer();
+// const axios = require('axios')
+// const cheerio = require('cheerio');
+// const config = require('./config.json');
 
 
 // axios.get(`http://192.168.99.100:8050/render.html?url=https://www.winner.co.il/mainbook/sport-%D7%9B%D7%93%D7%95%D7%A8%D7%92%D7%9C/ep-%D7%9E%D7%95%D7%A2%D7%93%D7%95%D7%A0%D7%99%D7%9D-%D7%91%D7%99%D7%A0%D7%9C%D7%90%D7%95%D7%9E%D7%99%D7%99%D7%9D/ep-%D7%A1%D7%95%D7%A4%D7%A8-%D7%A7%D7%90%D7%A4-%D7%90%D7%99%D7%A8%D7%95%D7%A4%D7%90%D7%99&wait=10`)
@@ -41,12 +47,18 @@ const config = require('./config.json');
 //     }).catch(ex => {
 //       console.log(ex);
 //     })
-const puppeteer = require('./spider/puppeter');
 
-// const Spider = require('./spider/spider')
+app.get('/results', async (req, res) => {
+  const startTime = Date.now();
+  const result = await Crawler()
+  const endTime = Date.now();
 
-// console.log(Spider);
-// Spider()
-server.listen(8000);
+  console.log(`seconds elapsed = ${Math.floor((endTime - startTime) / 1000)}`);
 
-console.log("Listen on port 8000");
+  console.log(result);
+  res.send(result)
+})
+
+app.listen(PORT, () => {
+  console.log(`Listen on port: ${PORT}`);
+});
