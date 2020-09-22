@@ -4,8 +4,8 @@ WORKDIR /opt/app/
 
 COPY ./package*.json ./
 
-RUN apk update && apk add --no-cache chromium git
-RUN npm i
+RUN apk update && apk add --no-cache chromium
+RUN export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true && npm i
 
 COPY . .
 
