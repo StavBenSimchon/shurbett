@@ -19,12 +19,10 @@ def parse_pages(in_arr,base_url):
         except:
             pass
     return ou_ar
-headers = {'Content-Type': 'application/json'}
 
 config={
     "splash_url": "splash",
-    "splash_port": 8050,
-    "req_headers": headers
+    "splash_port": 8050
 }
 new_conf = parse_yaml('./config.yaml')
 config = config | new_conf
@@ -41,7 +39,7 @@ for url in urls:
     'url': url,
     'wait': 5
     }
-    r = requests.post(f"http://{config['splash_url']}:{config['splash_port']}/render.html", params=req_param)
+    r = requests.get(f"http://{config['splash_url']}:{config['splash_port']}/render.html", params=req_param)
     soup = BeautifulSoup(r.text, "lxml")
     breakpoint()
     # print(soup.select('.columns_2'))
