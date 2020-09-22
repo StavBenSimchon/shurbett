@@ -1,0 +1,37 @@
+# ATTRIBUTES #
+
+#responsive-league-view-panel - Main container for games
+.rj-ev-list__content - Each games section in Main container
+.rj-ev-list__ev-card__section--counter - Each game counter display
+
+
+# render issue with get content
+
+url = https://www.10bet.com/sports/football/england-premier-league/
+
+run this scrip
+on developer tools
+
+var games = document.querySelectorAll('.rj-ev-list__content')
+Array.from(games).map(g => {
+    var g_FC = g.firstChild
+    if(g_FC.classList.contains('rj-instant-collapsible')) {
+        var g_Children = g_FC.children
+        console.log(g_Children[1].children.length)
+        if(g_Children[1].children.length) {
+
+        }
+    }
+})
+
+
+Array.from(document.querySelectorAll('.events-container.events-container-league.league-events-block')).map(con => {
+   if(con.offsetParent !== null) {
+       var childrenElement = con.firstChild.firstChild.children
+       console.log(con)
+       Array.from(childrenElement).map(c => {
+           var deepChildren = childrenElement.firstChild
+           //console.log(deepChildren)
+       })
+   }
+})
