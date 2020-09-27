@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 const config = require('../config.json');
 
-module.exports = class Crawler {
+class Crawler {
 
     constructor() {
       this.browser = null
@@ -11,9 +11,9 @@ module.exports = class Crawler {
 
     async initPuppeteer() {
       this.browser = await puppeteer.launch({
-        headless: true,
-        executablePath: '/usr/bin/chromium-browser', //- For DOCKER
-        args: ['--no-sandbox', '--headless', '--disable-gpu'] //- For DOCKER
+        headless: false,
+        // executablePath: '/usr/bin/chromium-browser', //- For DOCKER
+        // args: ['--no-sandbox', '--headless', '--disable-gpu'] //- For DOCKER
       })
       this.page = await this.browser.newPage()
     }
@@ -23,9 +23,10 @@ module.exports = class Crawler {
       return cheerio.load(content)
     }
 
-    async crawlTo(url) {
-      await this.page.goto(url, {
-        waitUntil: 'domcontentloaded' // 'networkidle2' - for SPA
+    async crawlTo(crawl) {
+      await this.page.goto(crawl.url, {
+        // [domcontentloaded, load, networkidle0, networkidle2]
+        waitUntil: crawl.network
       })
     }
 
@@ -44,3 +45,5 @@ module.exports = class Crawler {
     }
 
 }
+
+module.exports = Crawler

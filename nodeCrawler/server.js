@@ -50,7 +50,8 @@ const Crawler = require('./spider/puppeter');
 
 app.get('/results', async (req, res) => {
   const startTime = Date.now();
-  const result = await Crawler()
+  const resultWinner = await Crawler.startCrawlWinner()
+  // const result10Bet = await Crawler.startCrawl10Bet()
   const endTime = Date.now();
 
   console.log(`seconds elapsed = ${Math.floor((endTime - startTime) / 1000)}`);
