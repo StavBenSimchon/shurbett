@@ -9,9 +9,10 @@ class Crawler {
       this.page = null
     }
 
-    async initPuppeteer() {
+    async initPuppeteer(delay = 0) {
       this.browser = await puppeteer.launch({
         headless: false,
+        slowMo: delay,
         // executablePath: '/usr/bin/chromium-browser', //- For DOCKER
         // args: ['--no-sandbox', '--headless', '--disable-gpu'] //- For DOCKER
       })
@@ -20,13 +21,14 @@ class Crawler {
 
     async initCheerio() {
       const content = await this.page.content()
+
       return cheerio.load(content)
     }
 
     async crawlTo(crawl) {
+      // [domcontentloaded, load, networkidle0, networkidle2]
       await this.page.goto(crawl.url, {
-        // [domcontentloaded, load, networkidle0, networkidle2]
-        waitUntil: crawl.network
+        waitUntil: crawl.network,
       })
     }
 

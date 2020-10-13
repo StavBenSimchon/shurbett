@@ -1,8 +1,8 @@
 {
   "10bet": {
     "baseUrl": "https://www.10bet.com/",
-    "urls": [
-      "sports/football/england-premier-league/"
+    "urls_page": [
+      "sports/football/"
     ]
   },
   "winner": {

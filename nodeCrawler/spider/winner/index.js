@@ -1,8 +1,8 @@
-const CrawlerEngine = require('../crawler')
+const Crawler = require('../crawler')
 
 module.exports = async () => {
   try {
-    const crawler = new CrawlerEngine
+    const crawler = new Crawler
     await crawler.initPuppeteer()
 
     const page = await crawler.getPage()
@@ -22,15 +22,6 @@ module.exports = async () => {
       const totalPages = parseInt($('.total-pages').text().split(" ")[2])
 
       async function mapHrefLink() {
-        // const counterLink = $('.market_count > a')
-        //
-        // counterLink.map((i, el) => {
-        //   let href = $(el).attr('href')
-        //   let linkSplit = href.split('/')
-        //   const key = linkSplit[linkSplit.length - 1]
-        //   pageLinksList.set(key, href)
-        // })
-
         const count = await page.$$eval('.market_count > a', e => e.map(a => a.href))
         count.map(c => {
           let linkSplit = c.split('/')
