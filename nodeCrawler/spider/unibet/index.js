@@ -16,7 +16,7 @@ module.exports = async () => {
 
       // TODO 
       // 
-
+      await enterLinks()
       // await goToSideMenu()
       //
       // await showMoreCountries()
@@ -26,9 +26,15 @@ module.exports = async () => {
       // const data = await pageGetLink();
       return
     }
-
+    async function enterLinks(){
+      await page.waitForSelector('._086a2')
+      const selectors = await page.$x('//*[@id="rightPanel"]/div[3]/div/div/div[1]/div/div/div/div[2]/div[1]/div/div[3]/div[1]/div[2]/div[2]/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[3]')
+      // console.log(selectors)
+      await selectors[0].click()
+      console.log(">>>>aaaaa")
+    }
     async function goToPage(link) {
-      const URL = `${config['10bet'].baseUrl}${link}`
+      const URL = `${config['unibet'].baseUrl}${link}` 
       console.log(`URL >>>>>>>> ${URL} \n`)
       await crawler.crawlTo({url: URL, network: 'load'})
     }

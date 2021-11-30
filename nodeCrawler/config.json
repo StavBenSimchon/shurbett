@@ -10,5 +10,11 @@
     "urls_page": [
       "mainbook/sport-%D7%9B%D7%93%D7%95%D7%A8%D7%92%D7%9C"
     ]
+  },
+  "unibet": {
+    "baseUrl": "https://www.unibet.com/",
+    "urls_page": [
+      "betting/sports/filter/football/matches"
+    ]
   }
 }

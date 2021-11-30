@@ -8,8 +8,10 @@ const Crawler = require('./spider/');
 
 app.get('/results', async (req, res) => {
   const startTime = Date.now();
+  console.log(startTime)
   // const result = await Crawler.startCrawlWinner()
-  const result = await Crawler.startCrawl10Bet()
+  // const result = await Crawler.startCrawl10Bet()
+  const result = await Crawler.startCrawlUnibet()
   const endTime = Date.now();
 
   console.log(`seconds elapsed = ${Math.floor((endTime - startTime) / 1000)}`);

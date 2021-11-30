@@ -11,10 +11,10 @@ class Crawler {
 
     async initPuppeteer(delay = 0) {
       this.browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         slowMo: delay,
-        // executablePath: '/usr/bin/chromium-browser', //- For DOCKER
-        // args: ['--no-sandbox', '--headless', '--disable-gpu'] //- For DOCKER
+        executablePath: '/usr/bin/chromium-browser', //- For DOCKER
+        args: ['--no-sandbox', '--headless', '--disable-gpu'] //- For DOCKER
       })
       this.page = await this.browser.newPage()
     }
